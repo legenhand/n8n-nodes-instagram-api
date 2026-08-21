@@ -123,6 +123,31 @@ export const userFields: INodeProperties[] = [
     description: 'The Instagram User ID (or "me" for authenticated user)',
   },
   {
+    displayName: 'Metrics to Retrieve',
+    name: 'metricsMode',
+    type: 'options',
+    options: [
+      {
+        name: 'All Standard Metrics (Select All)',
+        value: 'all',
+        description: 'Retrieve all standard account performance metrics',
+      },
+      {
+        name: 'Selected Metrics',
+        value: 'selected',
+        description: 'Choose specific metrics to retrieve',
+      },
+    ],
+    default: 'all',
+    displayOptions: {
+      show: {
+        resource: ['user'],
+        operation: ['getInsights'],
+      },
+    },
+    description: 'Whether to retrieve all standard metrics or pick specific metrics',
+  },
+  {
     displayName: 'Metrics',
     name: 'metrics',
     type: 'multiOptions',
@@ -157,11 +182,25 @@ export const userFields: INodeProperties[] = [
       { name: 'Views', value: 'views' },
       { name: 'Website Clicks', value: 'website_clicks' },
     ],
-    default: ['reach', 'views', 'accounts_engaged', 'total_interactions', 'profile_views'],
+    default: [
+      'reach',
+      'views',
+      'accounts_engaged',
+      'total_interactions',
+      'likes',
+      'comments',
+      'shares',
+      'saves',
+      'replies',
+      'profile_views',
+      'website_clicks',
+      'content_views',
+    ],
     displayOptions: {
       show: {
         resource: ['user'],
         operation: ['getInsights'],
+        metricsMode: ['selected'],
       },
     },
     description: 'Metrics to query from Instagram Insights',

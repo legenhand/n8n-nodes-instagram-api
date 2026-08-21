@@ -47,6 +47,31 @@ export const insightFields: INodeProperties[] = [
     description: 'The Instagram User ID (or "me" for authenticated user)',
   },
   {
+    displayName: 'Metrics to Retrieve',
+    name: 'metricsMode',
+    type: 'options',
+    options: [
+      {
+        name: 'All Standard Metrics (Select All)',
+        value: 'all',
+        description: 'Retrieve all standard account performance metrics',
+      },
+      {
+        name: 'Selected Metrics',
+        value: 'selected',
+        description: 'Choose specific metrics to retrieve',
+      },
+    ],
+    default: 'all',
+    displayOptions: {
+      show: {
+        resource: ['insight'],
+        operation: ['getAccountInsights'],
+      },
+    },
+    description: 'Whether to retrieve all standard metrics or pick specific metrics',
+  },
+  {
     displayName: 'Metrics',
     name: 'metrics',
     type: 'multiOptions',
@@ -81,11 +106,25 @@ export const insightFields: INodeProperties[] = [
       { name: 'Views', value: 'views' },
       { name: 'Website Clicks', value: 'website_clicks' },
     ],
-    default: ['reach', 'views', 'accounts_engaged', 'total_interactions', 'profile_views'],
+    default: [
+      'reach',
+      'views',
+      'accounts_engaged',
+      'total_interactions',
+      'likes',
+      'comments',
+      'shares',
+      'saves',
+      'replies',
+      'profile_views',
+      'website_clicks',
+      'content_views',
+    ],
     displayOptions: {
       show: {
         resource: ['insight'],
         operation: ['getAccountInsights'],
+        metricsMode: ['selected'],
       },
     },
     description: 'Metrics to query from Instagram Account Insights',
@@ -171,6 +210,31 @@ export const insightFields: INodeProperties[] = [
     description: 'The ID of the media post, Reel, or Story',
   },
   {
+    displayName: 'Metrics to Retrieve',
+    name: 'mediaMetricsMode',
+    type: 'options',
+    options: [
+      {
+        name: 'All Metrics (Select All)',
+        value: 'all',
+        description: 'Retrieve all available media metrics',
+      },
+      {
+        name: 'Selected Metrics',
+        value: 'selected',
+        description: 'Choose specific metrics to retrieve',
+      },
+    ],
+    default: 'all',
+    displayOptions: {
+      show: {
+        resource: ['insight'],
+        operation: ['getMediaInsights'],
+      },
+    },
+    description: 'Whether to retrieve all metrics or pick specific metrics',
+  },
+  {
     displayName: 'Metrics',
     name: 'mediaMetrics',
     type: 'multiOptions',
@@ -190,11 +254,24 @@ export const insightFields: INodeProperties[] = [
       { name: 'Video Views', value: 'video_views' },
       { name: 'Views', value: 'views' },
     ],
-    default: ['reach', 'views', 'saved', 'shares', 'total_interactions'],
+    default: [
+      'reach',
+      'views',
+      'saved',
+      'shares',
+      'likes',
+      'comments',
+      'total_interactions',
+      'plays',
+      'profile_visits',
+      'profile_activity',
+      'follows',
+    ],
     displayOptions: {
       show: {
         resource: ['insight'],
         operation: ['getMediaInsights'],
+        mediaMetricsMode: ['selected'],
       },
     },
     description: 'Specific performance metrics to retrieve for this media item',
