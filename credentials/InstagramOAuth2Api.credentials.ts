@@ -31,11 +31,32 @@ export class InstagramOAuth2Api implements ICredentialType {
       default: 'https://api.instagram.com/oauth/access_token',
     },
     {
+      displayName: 'Client ID (Instagram App ID)',
+      name: 'clientId',
+      type: 'string',
+      default: '',
+      required: true,
+      description:
+        'Your Instagram App ID (found in App Dashboard > Instagram > API setup with Instagram login > 3. Set up Instagram business login > Business login settings > Instagram App ID). Do NOT use the main Facebook App ID.',
+    },
+    {
+      displayName: 'Client Secret (Instagram App Secret)',
+      name: 'clientSecret',
+      type: 'string',
+      typeOptions: { password: true },
+      default: '',
+      required: true,
+      description:
+        'Your Instagram App Secret (found in App Dashboard > Instagram > API setup with Instagram login > 3. Set up Instagram business login > Business login settings > Instagram App Secret).',
+    },
+    {
       displayName: 'Scope',
       name: 'scope',
       type: 'string',
-      default: 'instagram_business_basic,instagram_business_content_publish,instagram_business_manage_messages,instagram_business_manage_comments',
-      description: 'Comma-separated OAuth scopes for Instagram Business Login',
+      default:
+        'instagram_business_basic,instagram_business_content_publish,instagram_business_manage_messages,instagram_business_manage_comments',
+      description:
+        'Comma-separated OAuth scopes for Instagram Business Login (e.g. instagram_business_basic, instagram_business_content_publish, instagram_business_manage_messages, instagram_business_manage_comments)',
     },
     {
       displayName: 'Auth URI Query Parameters',
