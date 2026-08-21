@@ -16,6 +16,7 @@ This node enables automated interactions with Instagram Professional accounts (B
   - **Access Token (Direct / Long-Lived Token)**: Direct token-based authentication (supporting 60-day long-lived tokens).
 - **👤 User & Profile**:
   - Retrieve authenticated user profile (`/me`) or look up other accounts (`biography`, `followers_count`, `media_count`, `website`, etc.).
+  - Retrieve user-level account insights.
 - **📸 Media & Publishing**:
   - **Single Photo**: Publish images to the feed.
   - **Video & Reels**: Publish video posts and Instagram Reels with automatic asynchronous container status polling until ready (`FINISHED`).
@@ -32,8 +33,9 @@ This node enables automated interactions with Instagram Professional accounts (B
   - Send media messages with attachments (image, video, audio, file).
   - Retrieve active conversation threads and message histories.
 - **📊 Insights & Analytics**:
-  - Account-level metrics: *reach*, *impressions*, *profile views*, *accounts engaged*, *total interactions*.
-  - Media-level metrics: *reach*, *engagement*, *saved*, *shares*, *video views*, *plays*.
+  - Account-level metrics: *reach*, *views*, *profile views*, *accounts engaged*, *total interactions*, *follower count*, *website clicks*, etc.
+  - Media-level metrics: *reach*, *views*, *engagement*, *saved*, *shares*, *likes*, *comments*, *plays*, *profile visits*.
+  - Flexible **All Metrics (Select All)** or specific selection mode.
 - **🏷️ Mentions & Tags**:
   - Discover media or comments where your account was tagged or @mentioned.
   - Post automated replies to mentions.
@@ -42,16 +44,43 @@ This node enables automated interactions with Instagram Professional accounts (B
 
 ---
 
-## 📋 Prerequisites & Meta App Setup
+## 🔑 How to Setup OAuth & Get Instagram Client ID and Secret
 
-1. Go to [Meta for Developers](https://developers.facebook.com/) and create a new App (Select **Business** or **Other**).
-2. Add the **Instagram Platform** product and select **Instagram API with Instagram Login**.
-3. Under **Instagram Platform > Quickstart / Basic Display Settings**, add Instagram Testers or verify your Instagram Professional account.
-4. **Required Permissions / Scopes**:
-   - `instagram_business_basic`: Read profile info and basic media data.
-   - `instagram_business_content_publish`: Upload and publish photos, videos, reels, stories, and carousels.
-   - `instagram_business_manage_messages`: Send and receive direct messages.
-   - `instagram_business_manage_comments`: Moderate, create, reply to, and delete comments.
+Follow these step-by-step instructions to get your **Instagram Client ID** and **Instagram Client Secret** from the Meta App Dashboard:
+
+### 1. Create a Meta Developer App
+1. Go to [Meta for Developers Portal](https://developers.facebook.com/apps) and log in (or sign up).
+2. Click **Create App** (choose **Other** or **Business** as the app type).
+
+### 2. Add Instagram Use Case / Product
+1. In the app dashboard, navigate to **Use Cases** or **Add Product**.
+2. Select **Manage messaging & content on Instagram** (or **Instagram Platform** > **Instagram API with Instagram Login**).
+
+### 3. Retrieve Instagram Client ID & Secret
+1. In the left sidebar, navigate to:
+   **Instagram Platform** > **API setup with Instagram login** > **3. Set up Instagram business login** > **Business login settings** (or **Customize use case > Instagram**).
+2. On this page, you will find:
+   - 🔑 **Instagram App ID**: This is your **Client ID** for n8n.
+   - 🔒 **Instagram App Secret**: Click **Show** (enter your account password if prompted). This is your **Client Secret** for n8n.
+
+> [!IMPORTANT]
+> **Do NOT use the Facebook App ID** from the top header of the Meta Dashboard. You must use the specific **Instagram App ID** found inside the Instagram Platform settings.
+
+### 4. Add n8n OAuth Callback URL
+1. Open n8n and create a new **Instagram OAuth2 API** credential.
+2. Copy the **OAuth Callback URL** displayed in the modal (e.g. `https://your-n8n-instance.com/rest/oauth2-credential/callback`).
+3. Back in Meta App Dashboard under **Business login settings > Valid OAuth Redirect URIs**, paste the callback URL.
+4. Click **Save Changes**.
+
+---
+
+## 🔒 Required OAuth Permissions / Scopes
+
+The node uses the latest official Instagram Business Login scopes:
+* `instagram_business_basic`: Read profile info and basic media data.
+* `instagram_business_content_publish`: Upload and publish photos, videos, reels, stories, and carousels.
+* `instagram_business_manage_messages`: Send and receive direct messages.
+* `instagram_business_manage_comments`: Moderate, create, reply to, and delete comments.
 
 ---
 
@@ -76,7 +105,6 @@ bun run build
 
 # Link package globally
 bun link
-# or npm link
 ```
 
 In your n8n root / custom nodes folder:
@@ -86,12 +114,12 @@ npm link @rizkifirmansyah/n8n-nodes-instagram-api
 
 ---
 
-## 🛠️ Credentials Configuration
+## 🛠️ Credentials Configuration in n8n
 
-### 1. Instagram OAuth2 API (Business Login)
-- **Client ID**: Your Instagram App ID from the Meta Developer Dashboard.
-- **Client Secret**: Your Instagram App Secret.
-- **Redirect URL**: Add the n8n OAuth redirect URL shown in the credentials modal to your Meta App OAuth redirect list.
+### 1. Instagram OAuth2 API (Business Login - Recommended)
+- **Client ID (Instagram App ID)**: Your Instagram App ID from Meta Dashboard.
+- **Client Secret (Instagram App Secret)**: Your Instagram App Secret.
+- **Scope**: `instagram_business_basic,instagram_business_content_publish,instagram_business_manage_messages,instagram_business_manage_comments` (editable).
 - **API Version**: `v26.0` (default)
 - **Base URL**: `https://graph.instagram.com`
 
@@ -112,21 +140,28 @@ n8n-nodes-instagram-api/
 │   └── instagram.svg                      # Vector Logo
 ├── nodes/
 │   └── Instagram/
-│       ├── Instagram.node.ts              # Main Node Execution Controller
+│       ├── Instagram.node.ts              # Main Node Controller & Dispatcher
 │       ├── Instagram.node.json            # Community Node Metadata
 │       ├── GenericFunctions.ts            # API Request Helper, Polling & Pagination
 │       ├── instagram.svg                  # Node Icon
-│       └── descriptions/                  # Resource UI & Parameter Definitions
-│           ├── UserDescription.ts
-│           ├── MediaDescription.ts
-│           ├── CommentDescription.ts
-│           ├── InsightDescription.ts
-│           ├── MessageDescription.ts
-│           ├── MentionDescription.ts
-│           └── CustomDescription.ts
-├── scripts/
-│   └── copy-assets.ts                     # Asset Bundler (Icons & Metadata)
-├── index.ts
+│       ├── handlers/                      # Modular Action & Execution Handlers
+│       │   ├── UserHandler.ts             # User Profile & Insights Execution
+│       │   ├── MediaHandler.ts            # Media & Publishing Execution
+│       │   ├── CommentHandler.ts          # Comment Moderation Execution
+│       │   ├── MessageHandler.ts          # Direct Messaging Execution
+│       │   ├── InsightHandler.ts          # Insights & Analytics Execution
+│       │   ├── MentionHandler.ts          # Mention & Tag Execution
+│       │   └── CustomHandler.ts           # Custom Graph API Execution
+│       └── descriptions/                  # Modular UI & Parameter Definitions
+│           ├── user/                      # User operations & fields
+│           ├── media/                     # Media operations & fields
+│           ├── comment/                   # Comment operations & fields
+│           ├── message/                   # Message operations & fields
+│           ├── insight/                   # Insight operations & fields
+│           ├── mention/                   # Mention operations & fields
+│           ├── custom/                    # Custom request operations & fields
+│           └── index.ts                   # Master descriptions export
+├── index.ts                               # Package Entry Point
 ├── package.json
 ├── tsconfig.json
 └── README.md
@@ -136,4 +171,4 @@ n8n-nodes-instagram-api/
 
 ## 📄 License
 
-[MIT License](LICENSE) © 2026
+[MIT License](LICENSE) © 2026 Rizki Firmansyah
