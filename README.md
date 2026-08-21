@@ -1,6 +1,6 @@
-# n8n-nodes-instagram-api
+# @rizkifirmansyah/n8n-nodes-instagram-api
 
-[![npm version](https://badge.fury.io/js/n8n-nodes-instagram-api.svg)](https://badge.fury.io/js/n8n-nodes-instagram-api)
+[![npm version](https://badge.fury.io/js/@rizkifirmansyah%2Fn8n-nodes-instagram-api.svg)](https://badge.fury.io/js/@rizkifirmansyah%2Fn8n-nodes-instagram-api)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 An official community node for **n8n** that integrates with **Instagram API with Instagram Login** (Business Login for Instagram) powered by Meta Graph API `v26.0`.
@@ -62,7 +62,7 @@ This node enables automated interactions with Instagram Professional accounts (B
 1. Open your **n8n instance**.
 2. Go to **Settings** > **Community Nodes**.
 3. Click **Install a community node**.
-4. Enter the package name: `n8n-nodes-instagram-api`
+4. Enter the package name: `@rizkifirmansyah/n8n-nodes-instagram-api`
 5. Accept the risks and click **Install**.
 
 ### Option 2: Manual / Local Development (with Bun)
@@ -82,7 +82,7 @@ bun link
 
 In your n8n root / custom nodes folder:
 ```bash
-npm link n8n-nodes-instagram-api
+npm link @rizkifirmansyah/n8n-nodes-instagram-api
 ```
 
 ---

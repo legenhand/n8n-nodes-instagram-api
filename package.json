@@ -1,5 +1,5 @@
 {
-  "name": "n8n-nodes-instagram-api",
+  "name": "@rizkifirmansyah/n8n-nodes-instagram-api",
   "version": "0.1.0",
   "description": "n8n community node for Instagram API with Instagram Login (Business Login for Instagram)",
   "keywords": [
@@ -12,6 +12,10 @@
     "business-login"
   ],
   "license": "MIT",
+  "author": {
+    "name": "Rizki Firmansyah",
+    "email": "firmansyah720.fs@gmail.com"
+  },
   "homepage": "https://github.com/legenhand/n8n-nodes-instagram-api",
   "repository": {
     "type": "git",

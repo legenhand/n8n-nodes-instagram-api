@@ -1,5 +1,5 @@
 {
-  "node": "n8n-nodes-instagram-api.instagram",
+  "node": "@rizkifirmansyah/n8n-nodes-instagram-api.instagram",
   "nodeVersion": "1.0",
   "codexVersion": "1.0",
   "categories": [
