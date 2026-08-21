@@ -6,13 +6,22 @@ import {
   NodeOperationError,
 } from 'n8n-workflow';
 
-import { userFields, userOperations } from './descriptions/UserDescription';
-import { mediaFields, mediaOperations } from './descriptions/MediaDescription';
-import { commentFields, commentOperations } from './descriptions/CommentDescription';
-import { messageFields, messageOperations } from './descriptions/MessageDescription';
-import { insightFields, insightOperations } from './descriptions/InsightDescription';
-import { mentionFields, mentionOperations } from './descriptions/MentionDescription';
-import { customFields, customOperations } from './descriptions/CustomDescription';
+import {
+  userFields,
+  userOperations,
+  mediaFields,
+  mediaOperations,
+  commentFields,
+  commentOperations,
+  messageFields,
+  messageOperations,
+  insightFields,
+  insightOperations,
+  mentionFields,
+  mentionOperations,
+  customFields,
+  customOperations,
+} from './descriptions';
 
 import { handleUser } from './handlers/UserHandler';
 import { handleMedia } from './handlers/MediaHandler';

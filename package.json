@@ -1,6 +1,6 @@
 {
   "name": "@rizkifirmansyah/n8n-nodes-instagram-api",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "n8n community node for Instagram API with Instagram Login (Business Login for Instagram)",
   "keywords": [
     "n8n-community-node-package",
@@ -36,7 +36,7 @@
     ]
   },
   "scripts": {
-    "build": "tsc && mkdir -p dist/nodes/Instagram dist/credentials && cp nodes/Instagram/*.svg nodes/Instagram/*.json dist/nodes/Instagram/ && cp credentials/*.svg dist/credentials/",
+    "build": "rm -rf dist && tsc && mkdir -p dist/nodes/Instagram dist/credentials && cp nodes/Instagram/*.svg nodes/Instagram/*.json dist/nodes/Instagram/ && cp credentials/*.svg dist/credentials/",
     "dev": "tsc --watch",
     "prepare": "bun run build"
   },
