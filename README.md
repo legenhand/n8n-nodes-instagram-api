@@ -1,9 +1,12 @@
 # @rizkifirmansyah/n8n-nodes-instagram-api
 
 [![npm version](https://badge.fury.io/js/@rizkifirmansyah%2Fn8n-nodes-instagram-api.svg)](https://badge.fury.io/js/@rizkifirmansyah%2Fn8n-nodes-instagram-api)
+[![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://legenhand.github.io/n8n-nodes-instagram-api/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 An official community node for **n8n** that integrates with **Instagram API with Instagram Login** (Business Login for Instagram) powered by Meta Graph API `v26.0`.
+
+📖 **[Full Documentation & Guides](https://legenhand.github.io/n8n-nodes-instagram-api/)**
 
 This node enables automated interactions with Instagram Professional accounts (Business & Creator) directly via Instagram Login, **without requiring the account to be connected to a Facebook Page**.
 

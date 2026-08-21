@@ -1,0 +1,53 @@
+---
+title: n8n Instagram API Community Node
+description: Official documentation for @rizkifirmansyah/n8n-nodes-instagram-api - Instagram API with Instagram Business Login and AI Agent Tool for n8n.
+template: splash
+hero:
+  tagline: Connect n8n workflows and AI Agents directly to Instagram Business & Creator accounts without requiring a Facebook Page connection.
+  image:
+    file: ../../assets/logo.svg
+  actions:
+    - text: Get Started
+      link: /n8n-nodes-instagram-api/getting-started/introduction/
+      icon: right-arrow
+      variant: primary
+    - text: View on GitHub
+      link: https://github.com/legenhand/n8n-nodes-instagram-api
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Key Features
+
+<CardGrid stagger>
+  <Card title="Instagram Business Login" icon="seti:lock">
+    Authenticates directly with Instagram OAuth2 without needing to link or manage a Facebook Page.
+  </Card>
+  <Card title="Publish Content & Reels" icon="document">
+    Publish Single Photos, Videos, Reels, Carousels (2-10 items), and Stories with automatic container polling.
+  </Card>
+  <Card title="Direct Messaging (DMs)" icon="email">
+    Send text DMs, images, videos, audio, and documents to users via Instagram-Scoped IDs (IGSID).
+  </Card>
+  <Card title="Comment Moderation" icon="comment">
+    Retrieve, create, reply to, hide, unhide, and delete comments on your Instagram media.
+  </Card>
+  <Card title="Insights & Analytics" icon="chart">
+    Fetch reach, views, engagement, follower count, and media metrics with predefined or custom date presets.
+  </Card>
+  <Card title="AI Agent Tool (LangChain)" icon="rocket">
+    Plugs directly as an AI Tool into n8n's AI Agent node for autonomous social media workflows.
+  </Card>
+</CardGrid>
+
+---
+
+## Quick Installation
+
+```bash
+# In your n8n instance:
+# Settings > Community Nodes > Install a community node:
+@rizkifirmansyah/n8n-nodes-instagram-api
+```
