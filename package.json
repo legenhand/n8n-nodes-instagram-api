@@ -1,0 +1,47 @@
+{
+  "name": "n8n-nodes-instagram-api",
+  "version": "0.1.0",
+  "description": "n8n community node for Instagram API with Instagram Login (Business Login for Instagram)",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "instagram",
+    "instagram-api",
+    "instagram-login",
+    "meta",
+    "business-login"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/legenhand/n8n-nodes-instagram-api",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/legenhand/n8n-nodes-instagram-api.git"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/InstagramApi.credentials.js",
+      "dist/credentials/InstagramOAuth2Api.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/Instagram/Instagram.node.js"
+    ]
+  },
+  "scripts": {
+    "build": "tsc && bun run copy-assets",
+    "copy-assets": "bun ./scripts/copy-assets.ts",
+    "dev": "tsc --watch",
+    "format": "prettier --write \"**/*.{js,ts,json,md}\"",
+    "lint": "eslint --ext .ts .",
+    "prepare": "bun run build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.19",
+    "n8n-workflow": "^1.78.0",
+    "typescript": "^5.7.3"
+  }
+}

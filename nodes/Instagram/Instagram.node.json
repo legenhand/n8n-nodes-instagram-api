@@ -1,0 +1,17 @@
+{
+  "node": "n8n-nodes-instagram-api.instagram",
+  "nodeVersion": "1.0",
+  "codexVersion": "1.0",
+  "categories": [
+    "Social Media",
+    "Marketing",
+    "Communication"
+  ],
+  "resources": {
+    "primaryDocumentation": [
+      {
+        "url": "https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-instagram-login"
+      }
+    ]
+  }
+}
