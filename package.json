@@ -1,7 +1,7 @@
 {
   "name": "@rizkifirmansyah/n8n-nodes-instagram-api",
-  "version": "0.1.11",
-  "description": "n8n community node for Instagram API with Instagram Login (Business Login for Instagram)",
+  "version": "0.2.0",
+  "description": "n8n community node for Instagram API with Instagram Login (Business Login for Instagram) & AI Agent Tool",
   "keywords": [
     "n8n-community-node-package",
     "n8n",
@@ -9,7 +9,9 @@
     "instagram-api",
     "instagram-login",
     "meta",
-    "business-login"
+    "business-login",
+    "ai-tool",
+    "ai-agent"
   ],
   "license": "MIT",
   "author": {
@@ -32,7 +34,8 @@
       "dist/credentials/InstagramOAuth2Api.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/Instagram/Instagram.node.js"
+      "dist/nodes/Instagram/Instagram.node.js",
+      "dist/nodes/Instagram/InstagramTool.node.js"
     ]
   },
   "scripts": {

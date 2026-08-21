@@ -36,9 +36,9 @@ This node enables automated interactions with Instagram Professional accounts (B
   - Account-level metrics: *reach*, *views*, *profile views*, *accounts engaged*, *total interactions*, *follower count*, *website clicks*, etc.
   - Media-level metrics: *reach*, *views*, *engagement*, *saved*, *shares*, *likes*, *comments*, *plays*, *profile visits*.
   - Flexible **All Metrics (Select All)** or specific selection mode.
-- **🏷️ Mentions & Tags**:
-  - Discover media or comments where your account was tagged or @mentioned.
-  - Post automated replies to mentions.
+- **🤖 AI Agent Tool Support (LangChain / n8n AI)**:
+  - Connect directly to the **AI Agent** node's `Tool` connector using the dedicated **Instagram Tool** sub-node.
+  - Allows autonomous AI agents to browse profiles, reply to comments, send DMs, publish content, and retrieve insights on demand.
 - **⚡ Custom Graph API Call**:
   - Execute custom HTTP requests (GET, POST, DELETE) to any Meta Graph API `v26.0` endpoint with automated authentication.
 
@@ -142,6 +142,8 @@ n8n-nodes-instagram-api/
 │   └── Instagram/
 │       ├── Instagram.node.ts              # Main Node Controller & Dispatcher
 │       ├── Instagram.node.json            # Community Node Metadata
+│       ├── InstagramTool.node.ts          # Dedicated AI Agent Tool Sub-Node
+│       ├── InstagramTool.node.json        # AI Agent Tool Metadata
 │       ├── GenericFunctions.ts            # API Request Helper, Polling & Pagination
 │       ├── instagram.svg                  # Node Icon
 │       ├── handlers/                      # Modular Action & Execution Handlers

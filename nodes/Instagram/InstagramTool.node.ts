@@ -3,6 +3,7 @@ import {
   INodeExecutionData,
   INodeType,
   INodeTypeDescription,
+  NodeConnectionTypes,
   NodeOperationError,
 } from 'n8n-workflow';
 
@@ -44,22 +45,28 @@ const resourceHandlers: Record<
   custom: handleCustom,
 };
 
-export class Instagram implements INodeType {
+export class InstagramTool implements INodeType {
   description: INodeTypeDescription = {
-    displayName: 'Instagram (Business Login)',
-    name: 'instagram',
+    displayName: 'Instagram Tool (Business Login)',
+    name: 'instagramTool',
     icon: 'file:instagram.svg',
     group: ['transform'],
     version: 1,
     subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
     description:
-      'Interact with Instagram Graph API using Instagram Login (Publish Posts/Reels/Stories/Carousels, Manage Comments, Send DMs, Read Insights, and Mentions)',
+      'Use Instagram Graph API as a tool for AI Agents (Publish Posts/Reels/Stories/Carousels, Manage Comments, Send DMs, Read Insights, and Mentions)',
     defaults: {
-      name: 'Instagram (Business Login)',
+      name: 'Instagram Tool',
+    },
+    codex: {
+      categories: ['AI'],
+      subcategories: {
+        AI: ['Tools'],
+      },
     },
     usableAsTool: true,
-    inputs: ['main'],
-    outputs: ['main'],
+    inputs: [],
+    outputs: [NodeConnectionTypes.AiTool],
     credentials: [
       {
         name: 'instagramOAuth2Api',
@@ -172,7 +179,8 @@ export class Instagram implements INodeType {
       throw new NodeOperationError(this.getNode(), `Unsupported resource: ${resource}`);
     }
 
-    for (let i = 0; i < items.length; i++) {
+    const itemsCount = items.length || 1;
+    for (let i = 0; i < itemsCount; i++) {
       try {
         const responseData = await handler.call(this, operation, i);
 
