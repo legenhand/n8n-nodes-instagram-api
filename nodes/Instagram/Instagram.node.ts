@@ -156,13 +156,18 @@ export class Instagram implements INodeType {
         //                               USER
         // =====================================================================
         if (resource === 'user') {
-          if (operation === 'getMe') {
-            const fields = (this.getNodeParameter('fields', i, []) as string[]).join(',');
-            responseData = await instagramApiRequest.call(this, 'GET', '/me', {}, { fields });
-          } else if (operation === 'get') {
-            const userId = this.getNodeParameter('userId', i) as string;
-            const fields = (this.getNodeParameter('fields', i, []) as string[]).join(',');
-            responseData = await instagramApiRequest.call(this, 'GET', `/${userId}`, {}, { fields });
+          if (operation === 'getMe' || operation === 'get') {
+            const fieldsMode = this.getNodeParameter('fieldsMode', i, 'all') as string;
+            const allUserFields = 'id,user_id,username,name,account_type,profile_picture_url,followers_count,follows_count,media_count,biography,website';
+            const selectedFields = (this.getNodeParameter('fields', i, []) as string[]).join(',');
+            const fields = fieldsMode === 'all' ? allUserFields : (selectedFields || allUserFields);
+
+            if (operation === 'getMe') {
+              responseData = await instagramApiRequest.call(this, 'GET', '/me', {}, { fields });
+            } else {
+              const userId = this.getNodeParameter('userId', i) as string;
+              responseData = await instagramApiRequest.call(this, 'GET', `/${userId}`, {}, { fields });
+            }
           } else if (operation === 'getInsights') {
             const rawUserId = this.getNodeParameter('userId', i, 'me') as string;
             const resolvedUserId = await getResolvedUserId.call(this, rawUserId);
@@ -197,7 +202,11 @@ export class Instagram implements INodeType {
         else if (resource === 'media') {
           if (operation === 'get') {
             const mediaId = this.getNodeParameter('mediaId', i) as string;
-            const fields = (this.getNodeParameter('fields', i, []) as string[]).join(',');
+            const fieldsMode = this.getNodeParameter('fieldsMode', i, 'all') as string;
+            const allMediaFields = 'id,caption,media_type,media_url,permalink,shortcode,thumbnail_url,timestamp,username,like_count,comments_count,is_comment_enabled,children{id,media_type,media_url,thumbnail_url},alt_text';
+            const selectedFields = (this.getNodeParameter('fields', i, []) as string[]).join(',');
+            const fields = fieldsMode === 'all' ? allMediaFields : (selectedFields || allMediaFields);
+
             responseData = await instagramApiRequest.call(
               this,
               'GET',
@@ -212,9 +221,12 @@ export class Instagram implements INodeType {
             const limit = returnAll ? undefined : (this.getNodeParameter('limit', i, 50) as number);
             const additionalFields = this.getNodeParameter('additionalFields', i, {}) as IDataObject;
 
-            const qs: IDataObject = {
-              fields: 'id,caption,media_type,media_url,permalink,thumbnail_url,timestamp,like_count,comments_count',
-            };
+            const fieldsMode = this.getNodeParameter('fieldsMode', i, 'all') as string;
+            const allMediaFields = 'id,caption,media_type,media_url,permalink,thumbnail_url,timestamp,like_count,comments_count,is_comment_enabled';
+            const selectedFields = (this.getNodeParameter('fields', i, []) as string[]).join(',');
+            const fields = fieldsMode === 'all' ? allMediaFields : (selectedFields || allMediaFields);
+
+            const qs: IDataObject = { fields };
 
             if (additionalFields.since) qs.since = additionalFields.since;
             if (additionalFields.until) qs.until = additionalFields.until;
@@ -433,7 +445,11 @@ export class Instagram implements INodeType {
         else if (resource === 'comment') {
           if (operation === 'get') {
             const commentId = this.getNodeParameter('commentId', i) as string;
-            const fields = (this.getNodeParameter('fields', i, []) as string[]).join(',');
+            const fieldsMode = this.getNodeParameter('fieldsMode', i, 'all') as string;
+            const allCommentFields = 'id,text,timestamp,like_count,hidden,replies_count,username,from{id,username}';
+            const selectedFields = (this.getNodeParameter('fields', i, []) as string[]).join(',');
+            const fields = fieldsMode === 'all' ? allCommentFields : (selectedFields || allCommentFields);
+
             responseData = await instagramApiRequest.call(
               this,
               'GET',
@@ -445,7 +461,10 @@ export class Instagram implements INodeType {
             const mediaId = this.getNodeParameter('mediaId', i) as string;
             const returnAll = this.getNodeParameter('returnAll', i, false) as boolean;
             const limit = returnAll ? undefined : (this.getNodeParameter('limit', i, 50) as number);
-            const fields = (this.getNodeParameter('fields', i, []) as string[]).join(',');
+            const fieldsMode = this.getNodeParameter('fieldsMode', i, 'all') as string;
+            const allCommentFields = 'id,text,timestamp,like_count,hidden,replies_count,username,from{id,username}';
+            const selectedFields = (this.getNodeParameter('fields', i, []) as string[]).join(',');
+            const fields = fieldsMode === 'all' ? allCommentFields : (selectedFields || allCommentFields);
 
             responseData = await instagramApiRequestAllItems.call(
               this,
@@ -460,7 +479,10 @@ export class Instagram implements INodeType {
             const commentId = this.getNodeParameter('commentId', i) as string;
             const returnAll = this.getNodeParameter('returnAll', i, false) as boolean;
             const limit = returnAll ? undefined : (this.getNodeParameter('limit', i, 50) as number);
-            const fields = (this.getNodeParameter('fields', i, []) as string[]).join(',');
+            const fieldsMode = this.getNodeParameter('fieldsMode', i, 'all') as string;
+            const allCommentFields = 'id,text,timestamp,like_count,hidden,replies_count,username,from{id,username}';
+            const selectedFields = (this.getNodeParameter('fields', i, []) as string[]).join(',');
+            const fields = fieldsMode === 'all' ? allCommentFields : (selectedFields || allCommentFields);
 
             responseData = await instagramApiRequestAllItems.call(
               this,

@@ -78,6 +78,31 @@ export const mediaFields: INodeProperties[] = [
     description: 'The ID of the media post',
   },
   {
+    displayName: 'Fields to Retrieve',
+    name: 'fieldsMode',
+    type: 'options',
+    options: [
+      {
+        name: 'All Fields (Recommended)',
+        value: 'all',
+        description: 'Retrieve all available media fields',
+      },
+      {
+        name: 'Selected Fields',
+        value: 'selected',
+        description: 'Choose specific fields to retrieve',
+      },
+    ],
+    default: 'all',
+    displayOptions: {
+      show: {
+        resource: ['media'],
+        operation: ['get', 'getAll'],
+      },
+    },
+    description: 'Whether to retrieve all available fields or pick specific fields',
+  },
+  {
     displayName: 'Fields',
     name: 'fields',
     type: 'multiOptions',
@@ -111,7 +136,8 @@ export const mediaFields: INodeProperties[] = [
     displayOptions: {
       show: {
         resource: ['media'],
-        operation: ['get'],
+        operation: ['get', 'getAll'],
+        fieldsMode: ['selected'],
       },
     },
     description: 'Fields to retrieve for the media item',

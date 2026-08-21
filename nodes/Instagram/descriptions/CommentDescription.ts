@@ -172,17 +172,42 @@ export const commentFields: INodeProperties[] = [
   //      comment: fields selection
   // ----------------------------------
   {
+    displayName: 'Fields to Retrieve',
+    name: 'fieldsMode',
+    type: 'options',
+    options: [
+      {
+        name: 'All Fields (Recommended)',
+        value: 'all',
+        description: 'Retrieve all available comment fields',
+      },
+      {
+        name: 'Selected Fields',
+        value: 'selected',
+        description: 'Choose specific fields to retrieve',
+      },
+    ],
+    default: 'all',
+    displayOptions: {
+      show: {
+        resource: ['comment'],
+        operation: ['get', 'getAll', 'getReplies'],
+      },
+    },
+    description: 'Whether to retrieve all available fields or pick specific fields',
+  },
+  {
     displayName: 'Fields',
     name: 'fields',
     type: 'multiOptions',
     options: [
+      { name: 'From / User', value: 'from{id,username}' },
       { name: 'Hidden', value: 'hidden' },
       { name: 'ID', value: 'id' },
       { name: 'Like Count', value: 'like_count' },
       { name: 'Replies Count', value: 'replies_count' },
       { name: 'Text', value: 'text' },
       { name: 'Timestamp', value: 'timestamp' },
-      { name: 'User / From', value: 'from{id,username}' },
       { name: 'Username', value: 'username' },
     ],
     default: ['id', 'text', 'timestamp', 'like_count', 'hidden', 'from{id,username}'],
@@ -190,6 +215,7 @@ export const commentFields: INodeProperties[] = [
       show: {
         resource: ['comment'],
         operation: ['get', 'getAll', 'getReplies'],
+        fieldsMode: ['selected'],
       },
     },
     description: 'Specific fields to return for each comment',
