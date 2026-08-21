@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://legenhand.github.io/n8n-nodes-instagram-api/sitemap-index.xml
+Sitemap: https://instagram-n8n-node.rizkifirmansyah.com/sitemap-index.xml

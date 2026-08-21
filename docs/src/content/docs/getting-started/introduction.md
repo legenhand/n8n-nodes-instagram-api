@@ -33,5 +33,5 @@ This node is built against Meta Graph API **`v26.0`** using base URL `https://gr
 
 ## Next Steps
 
-- Check out the [Installation Guide](/n8n-nodes-instagram-api/getting-started/installation/) to install the node into your n8n instance.
-- Follow the [Meta App & OAuth Setup Guide](/n8n-nodes-instagram-api/getting-started/meta-app-setup/) to obtain your Instagram App ID and Secret.
+- Check out the [Installation Guide](/getting-started/installation/) to install the node into your n8n instance.
+- Follow the [Meta App & OAuth Setup Guide](/getting-started/meta-app-setup/) to obtain your Instagram App ID and Secret.

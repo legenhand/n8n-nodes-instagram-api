@@ -3,8 +3,7 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://legenhand.github.io',
-  base: '/n8n-nodes-instagram-api',
+  site: 'https://instagram-n8n-node.rizkifirmansyah.com',
   integrations: [
     starlight({
       title: 'n8n Instagram API',
