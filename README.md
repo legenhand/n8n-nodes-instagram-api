@@ -140,10 +140,8 @@ n8n-nodes-instagram-api/
 │   └── instagram.svg                      # Vector Logo
 ├── nodes/
 │   └── Instagram/
-│       ├── Instagram.node.ts              # Main Node Controller & Dispatcher
+│       ├── Instagram.node.ts              # Main Node Controller & AI Tool Handler
 │       ├── Instagram.node.json            # Community Node Metadata
-│       ├── InstagramTool.node.ts          # Dedicated AI Agent Tool Sub-Node
-│       ├── InstagramTool.node.json        # AI Agent Tool Metadata
 │       ├── GenericFunctions.ts            # API Request Helper, Polling & Pagination
 │       ├── instagram.svg                  # Node Icon
 │       ├── handlers/                      # Modular Action & Execution Handlers
