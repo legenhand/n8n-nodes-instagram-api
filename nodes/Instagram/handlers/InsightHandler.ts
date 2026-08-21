@@ -1,62 +1,70 @@
-import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
+import { IDataObject, IExecuteFunctions, NodeOperationError } from 'n8n-workflow';
 import {
   getResolvedUserId,
   instagramApiRequest,
+  resolveParameterList,
 } from '../GenericFunctions';
+
+const ALL_ACCOUNT_METRICS =
+  'reach,views,accounts_engaged,total_interactions,likes,comments,shares,saves,replies,profile_views,website_clicks,content_views';
+
+const ALL_MEDIA_METRICS =
+  'reach,views,saved,shares,likes,comments,total_interactions,plays,profile_visits,profile_activity,follows';
+
+async function handleGetAccountInsights(this: IExecuteFunctions, i: number): Promise<any> {
+  const rawUserId = this.getNodeParameter('userId', i, 'me') as string;
+  const resolvedUserId = await getResolvedUserId.call(this, rawUserId);
+  const metric = resolveParameterList.call(this, i, ALL_ACCOUNT_METRICS, 'metrics', 'metricsMode');
+  const period = this.getNodeParameter('period', i, 'day') as string;
+  const additionalFields = this.getNodeParameter('additionalFields', i, {}) as IDataObject;
+
+  const qs: IDataObject = { metric, period };
+  if (additionalFields.since) qs.since = additionalFields.since;
+  if (additionalFields.until) qs.until = additionalFields.until;
+  if (additionalFields.metric_type && additionalFields.metric_type !== 'default') {
+    qs.metric_type = additionalFields.metric_type;
+  }
+
+  return await instagramApiRequest.call(
+    this,
+    'GET',
+    `/${resolvedUserId}/insights`,
+    {},
+    qs,
+  );
+}
+
+async function handleGetMediaInsights(this: IExecuteFunctions, i: number): Promise<any> {
+  const mediaId = this.getNodeParameter('mediaId', i) as string;
+  const metric = resolveParameterList.call(this, i, ALL_MEDIA_METRICS, 'mediaMetrics', 'mediaMetricsMode');
+
+  return await instagramApiRequest.call(
+    this,
+    'GET',
+    `/${mediaId}/insights`,
+    {},
+    { metric },
+  );
+}
+
+const insightOperationHandlers: Record<
+  string,
+  (this: IExecuteFunctions, i: number) => Promise<any>
+> = {
+  getAccountInsights: handleGetAccountInsights,
+  getMediaInsights: handleGetMediaInsights,
+};
 
 export async function handleInsight(
   this: IExecuteFunctions,
   operation: string,
   i: number,
 ): Promise<any> {
-  if (operation === 'getAccountInsights') {
-    const rawUserId = this.getNodeParameter('userId', i, 'me') as string;
-    const resolvedUserId = await getResolvedUserId.call(this, rawUserId);
-    const metricsMode = this.getNodeParameter('metricsMode', i, 'all') as string;
-    const allStandardMetrics =
-      'reach,views,accounts_engaged,total_interactions,likes,comments,shares,saves,replies,profile_views,website_clicks,content_views';
-    const selectedMetrics = (this.getNodeParameter('metrics', i, []) as string[]).join(',');
-    const metrics = metricsMode === 'all' ? allStandardMetrics : selectedMetrics || allStandardMetrics;
-    const period = this.getNodeParameter('period', i, 'day') as string;
-    const additionalFields = this.getNodeParameter('additionalFields', i, {}) as IDataObject;
-
-    const qs: IDataObject = {
-      metric: metrics,
-      period,
-    };
-
-    if (additionalFields.since) qs.since = additionalFields.since;
-    if (additionalFields.until) qs.until = additionalFields.until;
-    if (additionalFields.metric_type && additionalFields.metric_type !== 'default') {
-      qs.metric_type = additionalFields.metric_type;
-    }
-
-    return await instagramApiRequest.call(
-      this,
-      'GET',
-      `/${resolvedUserId}/insights`,
-      {},
-      qs,
-    );
+  const handler = insightOperationHandlers[operation];
+  if (!handler) {
+    throw new NodeOperationError(this.getNode(), `Unsupported Insight operation: ${operation}`, {
+      itemIndex: i,
+    });
   }
-
-  if (operation === 'getMediaInsights') {
-    const mediaId = this.getNodeParameter('mediaId', i) as string;
-    const mediaMetricsMode = this.getNodeParameter('mediaMetricsMode', i, 'all') as string;
-    const allMediaMetrics =
-      'reach,views,saved,shares,likes,comments,total_interactions,plays,profile_visits,profile_activity,follows';
-    const selectedMediaMetrics = (this.getNodeParameter('mediaMetrics', i, []) as string[]).join(',');
-    const mediaMetrics =
-      mediaMetricsMode === 'all' ? allMediaMetrics : selectedMediaMetrics || allMediaMetrics;
-
-    return await instagramApiRequest.call(
-      this,
-      'GET',
-      `/${mediaId}/insights`,
-      {},
-      { metric: mediaMetrics },
-    );
-  }
-
-  return undefined;
+  return await handler.call(this, i);
 }

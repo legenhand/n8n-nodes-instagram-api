@@ -167,3 +167,19 @@ export async function getResolvedUserId(
   const meResponse = await instagramApiRequest.call(this, 'GET', '/me', {}, { fields: 'id,user_id,username' });
   return meResponse.id || meResponse.user_id || 'me';
 }
+
+export function resolveParameterList(
+  this: IExecuteFunctions,
+  itemIndex: number,
+  allDefaultValue: string,
+  paramName: string = 'fields',
+  modeParamName: string = 'fieldsMode',
+): string {
+  const mode = this.getNodeParameter(modeParamName, itemIndex, 'all') as string;
+  if (mode === 'all') {
+    return allDefaultValue;
+  }
+  const selected = (this.getNodeParameter(paramName, itemIndex, []) as string[]).join(',');
+  return selected || allDefaultValue;
+}
+

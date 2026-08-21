@@ -31,6 +31,19 @@ import { handleInsight } from './handlers/InsightHandler';
 import { handleMention } from './handlers/MentionHandler';
 import { handleCustom } from './handlers/CustomHandler';
 
+const resourceHandlers: Record<
+  string,
+  (this: IExecuteFunctions, operation: string, index: number) => Promise<any>
+> = {
+  user: handleUser,
+  media: handleMedia,
+  comment: handleComment,
+  message: handleMessage,
+  insight: handleInsight,
+  mention: handleMention,
+  custom: handleCustom,
+};
+
 export class Instagram implements INodeType {
   description: INodeTypeDescription = {
     displayName: 'Instagram (Business Login)',
@@ -152,26 +165,15 @@ export class Instagram implements INodeType {
 
     const resource = this.getNodeParameter('resource', 0) as string;
     const operation = this.getNodeParameter('operation', 0, '') as string;
+    const handler = resourceHandlers[resource];
+
+    if (!handler) {
+      throw new NodeOperationError(this.getNode(), `Unsupported resource: ${resource}`);
+    }
 
     for (let i = 0; i < items.length; i++) {
       try {
-        let responseData: any;
-
-        if (resource === 'user') {
-          responseData = await handleUser.call(this, operation, i);
-        } else if (resource === 'media') {
-          responseData = await handleMedia.call(this, operation, i);
-        } else if (resource === 'comment') {
-          responseData = await handleComment.call(this, operation, i);
-        } else if (resource === 'message') {
-          responseData = await handleMessage.call(this, operation, i);
-        } else if (resource === 'insight') {
-          responseData = await handleInsight.call(this, operation, i);
-        } else if (resource === 'mention') {
-          responseData = await handleMention.call(this, operation, i);
-        } else if (resource === 'custom') {
-          responseData = await handleCustom.call(this, operation, i);
-        }
+        const responseData = await handler.call(this, operation, i);
 
         const executionData = this.helpers.constructExecutionMetaData(
           this.helpers.returnJsonArray(responseData as any),

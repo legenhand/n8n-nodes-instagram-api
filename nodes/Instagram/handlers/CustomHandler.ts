@@ -6,6 +6,22 @@ import {
 } from 'n8n-workflow';
 import { instagramApiRequest } from '../GenericFunctions';
 
+function parseJsonParameter(
+  input: string | IDataObject,
+  errorMessage: string,
+  nodeContext: any,
+  itemIndex: number,
+): IDataObject {
+  if (typeof input === 'object' && input !== null) {
+    return input;
+  }
+  try {
+    return JSON.parse(input || '{}');
+  } catch {
+    throw new NodeOperationError(nodeContext, errorMessage, { itemIndex });
+  }
+}
+
 export async function handleCustom(
   this: IExecuteFunctions,
   _operation: string,
@@ -16,20 +32,18 @@ export async function handleCustom(
   const queryParamsJson = this.getNodeParameter('queryParamsJson', i, '{}') as string | IDataObject;
   const bodyParamsJson = this.getNodeParameter('bodyParamsJson', i, '{}') as string | IDataObject;
 
-  let qs: IDataObject = {};
-  let body: IDataObject = {};
-
-  try {
-    qs = typeof queryParamsJson === 'string' ? JSON.parse(queryParamsJson) : queryParamsJson;
-  } catch {
-    throw new NodeOperationError(this.getNode(), 'Query Parameters must be a valid JSON object');
-  }
-
-  try {
-    body = typeof bodyParamsJson === 'string' ? JSON.parse(bodyParamsJson) : bodyParamsJson;
-  } catch {
-    throw new NodeOperationError(this.getNode(), 'Body Parameters must be a valid JSON object');
-  }
+  const qs = parseJsonParameter(
+    queryParamsJson,
+    'Query Parameters must be a valid JSON object',
+    this.getNode(),
+    i,
+  );
+  const body = parseJsonParameter(
+    bodyParamsJson,
+    'Body Parameters must be a valid JSON object',
+    this.getNode(),
+    i,
+  );
 
   return await instagramApiRequest.call(
     this,
