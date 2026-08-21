@@ -52,7 +52,6 @@ This node enables automated interactions with Instagram Professional accounts (B
    - `instagram_business_content_publish`: Upload and publish photos, videos, reels, stories, and carousels.
    - `instagram_business_manage_messages`: Send and receive direct messages.
    - `instagram_business_manage_comments`: Moderate, create, reply to, and delete comments.
-   - `instagram_business_manage_insights`: Access account and media analytics.
 
 ---
 

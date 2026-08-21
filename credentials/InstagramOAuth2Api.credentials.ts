@@ -33,8 +33,9 @@ export class InstagramOAuth2Api implements ICredentialType {
     {
       displayName: 'Scope',
       name: 'scope',
-      type: 'hidden',
-      default: 'instagram_business_basic,instagram_business_content_publish,instagram_business_manage_messages,instagram_business_manage_comments,instagram_business_manage_insights',
+      type: 'string',
+      default: 'instagram_business_basic,instagram_business_content_publish,instagram_business_manage_messages,instagram_business_manage_comments',
+      description: 'Comma-separated OAuth scopes for Instagram Business Login',
     },
     {
       displayName: 'Auth URI Query Parameters',
