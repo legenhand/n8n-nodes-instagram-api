@@ -3,7 +3,6 @@ import {
   INodeExecutionData,
   INodeType,
   INodeTypeDescription,
-  NodeApiError,
   NodeConnectionTypes,
   NodeOperationError,
 } from 'n8n-workflow';
@@ -198,11 +197,7 @@ export class Instagram implements INodeType {
           continue;
         }
 
-        if (error instanceof NodeApiError || error instanceof NodeOperationError) {
-          throw error;
-        }
-
-        throw new NodeOperationError(this.getNode(), error, {
+        throw new NodeOperationError(this.getNode(), error as Error, {
           itemIndex: i,
         });
       }

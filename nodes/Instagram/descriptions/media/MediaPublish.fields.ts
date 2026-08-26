@@ -164,7 +164,7 @@ export const mediaPublishFields: INodeProperties[] = [
         description: 'Whether the Reel should also be shown on the main profile grid / feed',
       },
       {
-        displayName: 'Thumb Offset (ms)',
+        displayName: 'Thumb Offset (Ms)',
         name: 'thumb_offset',
         type: 'number',
         default: 0,
