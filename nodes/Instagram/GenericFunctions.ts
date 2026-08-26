@@ -7,6 +7,7 @@ import {
   ILoadOptionsFunctions,
   NodeApiError,
   NodeOperationError,
+  sleep,
 } from 'n8n-workflow';
 
 export async function instagramApiRequest(
@@ -145,7 +146,7 @@ export async function pollMediaContainerStatus(
 
     // Still IN_PROGRESS or PUBLISHED
     if (attempt < maxAttempts) {
-      await new Promise((resolve) => setTimeout(resolve, delayMs));
+      await sleep(delayMs);
     }
   }
 

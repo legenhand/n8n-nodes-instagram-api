@@ -31,7 +31,7 @@ export const customFields: INodeProperties[] = [
         operation: ['customApiCall'],
       },
     },
-    description: 'The API endpoint path (e.g. /me, /me/media, /{user-id}/insights)',
+    description: 'The API endpoint path (e.g. /me, /me/media, /{user ID}/insights)',
   },
   {
     displayName: 'Query Parameters (JSON)',
@@ -44,7 +44,7 @@ export const customFields: INodeProperties[] = [
         operation: ['customApiCall'],
       },
     },
-    description: 'Query parameters as a JSON object (e.g. {"fields": "id,username"})',
+    description: 'Query parameters as a JSON object (e.g. {"fields": "username"})',
   },
   {
     displayName: 'Body Parameters (JSON)',

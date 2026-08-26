@@ -13,15 +13,27 @@ export const commentOperations: INodeProperties[] = [
     },
     options: [
       {
+        name: 'Create Comment',
+        value: 'create',
+        description: 'Post a new comment on a media item',
+        action: 'Create a comment',
+      },
+      {
+        name: 'Delete Comment',
+        value: 'delete',
+        description: 'Delete a comment',
+        action: 'Delete a comment',
+      },
+      {
         name: 'Get Comment',
         value: 'get',
         description: 'Get details of a specific comment',
         action: 'Get a comment',
       },
       {
-        name: 'Get Many Comments',
+        name: 'Get Many',
         value: 'getAll',
-        description: 'Get all top-level comments on a media item',
+        description: 'Get many top-level comments on a media item',
         action: 'Get many comments',
       },
       {
@@ -31,28 +43,16 @@ export const commentOperations: INodeProperties[] = [
         action: 'Get comment replies',
       },
       {
-        name: 'Create Comment',
-        value: 'create',
-        description: 'Post a new comment on a media item',
-        action: 'Create a comment',
+        name: 'Hide / Unhide Comment',
+        value: 'hide',
+        description: 'Hide or unhide a comment on your post',
+        action: 'Hide or unhide a comment',
       },
       {
         name: 'Reply to Comment',
         value: 'reply',
         description: 'Reply to an existing comment',
         action: 'Reply to a comment',
-      },
-      {
-        name: 'Delete Comment',
-        value: 'delete',
-        description: 'Delete a comment',
-        action: 'Delete a comment',
-      },
-      {
-        name: 'Hide / Unhide Comment',
-        value: 'hide',
-        description: 'Hide or unhide a comment on your post',
-        action: 'Hide or unhide a comment',
       },
     ],
     default: 'getAll',

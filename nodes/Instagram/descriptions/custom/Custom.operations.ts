@@ -16,7 +16,7 @@ export const customOperations: INodeProperties[] = [
         name: 'Custom Graph API Call',
         value: 'customApiCall',
         description: 'Send a custom authenticated HTTP request to the Instagram Graph API',
-        action: 'Send a custom Graph API request',
+        action: 'Send a custom graph API request',
       },
     ],
     default: 'customApiCall',

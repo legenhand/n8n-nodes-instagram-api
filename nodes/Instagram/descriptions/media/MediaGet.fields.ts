@@ -111,7 +111,7 @@ export const mediaGetFields: INodeProperties[] = [
         operation: ['getAll'],
       },
     },
-    description: 'Whether to return all results or easily limit to a specific number',
+    description: 'Whether to return all results or only up to a given limit',
   },
   {
     displayName: 'Limit',

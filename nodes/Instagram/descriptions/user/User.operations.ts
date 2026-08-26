@@ -19,16 +19,16 @@ export const userOperations: INodeProperties[] = [
         action: 'Get authenticated user profile',
       },
       {
-        name: 'Get User Profile',
-        value: 'get',
-        description: 'Get profile information of a specific Instagram account by User ID',
-        action: 'Get a user profile',
-      },
-      {
         name: 'Get User Insights',
         value: 'getInsights',
         description: 'Get metrics and insights for an Instagram account',
         action: 'Get user insights',
+      },
+      {
+        name: 'Get User Profile',
+        value: 'get',
+        description: 'Get profile information of a specific Instagram account by User ID',
+        action: 'Get a user profile',
       },
     ],
     default: 'getMe',

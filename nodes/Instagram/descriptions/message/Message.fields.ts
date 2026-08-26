@@ -101,7 +101,7 @@ export const messageFields: INodeProperties[] = [
         operation: ['getConversations', 'getMessages'],
       },
     },
-    description: 'Whether to return all results or easily limit to a specific number',
+    description: 'Whether to return all results or only up to a given limit',
   },
   {
     displayName: 'Limit',

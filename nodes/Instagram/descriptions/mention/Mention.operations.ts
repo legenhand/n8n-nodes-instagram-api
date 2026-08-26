@@ -13,16 +13,16 @@ export const mentionOperations: INodeProperties[] = [
     },
     options: [
       {
-        name: 'Get Mentioned Media',
-        value: 'getMentionedMedia',
-        description: 'Get media posts where the authenticated account was tagged or @mentioned',
-        action: 'Get mentioned media',
-      },
-      {
         name: 'Get Mentioned Comment',
         value: 'getMentionedComment',
         description: 'Get details of a comment where the account was @mentioned',
         action: 'Get a mentioned comment',
+      },
+      {
+        name: 'Get Mentioned Media',
+        value: 'getMentionedMedia',
+        description: 'Get media posts where the authenticated account was tagged or @mentioned',
+        action: 'Get mentioned media',
       },
       {
         name: 'Reply to Mention',

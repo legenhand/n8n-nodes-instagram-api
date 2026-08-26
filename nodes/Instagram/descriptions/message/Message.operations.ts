@@ -13,18 +13,6 @@ export const messageOperations: INodeProperties[] = [
     },
     options: [
       {
-        name: 'Send Text Message',
-        value: 'sendText',
-        description: 'Send a text direct message (DM) to an Instagram user',
-        action: 'Send a text DM',
-      },
-      {
-        name: 'Send Media Message',
-        value: 'sendMedia',
-        description: 'Send an image, video, or audio file as a direct message (DM)',
-        action: 'Send a media DM',
-      },
-      {
         name: 'Get Conversations',
         value: 'getConversations',
         description: 'Get list of active direct message conversations',
@@ -35,6 +23,18 @@ export const messageOperations: INodeProperties[] = [
         value: 'getMessages',
         description: 'Get messages from a specific conversation',
         action: 'Get messages from conversation',
+      },
+      {
+        name: 'Send Media Message',
+        value: 'sendMedia',
+        description: 'Send an image, video, or audio file as a direct message (DM)',
+        action: 'Send a media DM',
+      },
+      {
+        name: 'Send Text Message',
+        value: 'sendText',
+        description: 'Send a text direct message (DM) to an Instagram user',
+        action: 'Send a text DM',
       },
     ],
     default: 'sendText',

@@ -3,6 +3,8 @@ import {
   INodeExecutionData,
   INodeType,
   INodeTypeDescription,
+  NodeApiError,
+  NodeConnectionTypes,
   NodeOperationError,
 } from 'n8n-workflow';
 
@@ -58,8 +60,8 @@ export class Instagram implements INodeType {
       name: 'Instagram (Business Login)',
     },
     usableAsTool: true,
-    inputs: ['main'],
-    outputs: ['main'],
+    inputs: [NodeConnectionTypes.Main],
+    outputs: [NodeConnectionTypes.Main],
     credentials: [
       {
         name: 'instagramOAuth2Api',
@@ -104,19 +106,14 @@ export class Instagram implements INodeType {
         noDataExpression: true,
         options: [
           {
-            name: 'User / Profile',
-            value: 'user',
-            description: 'Get authenticated user or target user profile details and insights',
-          },
-          {
-            name: 'Media / Post',
-            value: 'media',
-            description: 'Publish photos, videos, reels, stories, carousels, and manage posts',
-          },
-          {
             name: 'Comment',
             value: 'comment',
             description: 'Manage comments, replies, hide/unhide, and delete comments on media posts',
+          },
+          {
+            name: 'Custom API Request',
+            value: 'custom',
+            description: 'Execute arbitrary Graph API HTTP requests',
           },
           {
             name: 'Direct Message',
@@ -129,14 +126,19 @@ export class Instagram implements INodeType {
             description: 'Retrieve detailed metrics and statistics for accounts and media items',
           },
           {
+            name: 'Media / Post',
+            value: 'media',
+            description: 'Publish photos, videos, reels, stories, carousels, and manage posts',
+          },
+          {
             name: 'Mention',
             value: 'mention',
             description: 'Handle mentions in captions/comments and reply to tagged media',
           },
           {
-            name: 'Custom API Request',
-            value: 'custom',
-            description: 'Execute arbitrary Graph API HTTP requests',
+            name: 'User / Profile',
+            value: 'user',
+            description: 'Get authenticated user or target user profile details and insights',
           },
         ],
         default: 'user',
@@ -196,8 +198,7 @@ export class Instagram implements INodeType {
           continue;
         }
 
-        if (error.context) {
-          error.context.itemIndex = i;
+        if (error instanceof NodeApiError || error instanceof NodeOperationError) {
           throw error;
         }
 

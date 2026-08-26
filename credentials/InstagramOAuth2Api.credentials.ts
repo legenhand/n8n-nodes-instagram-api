@@ -7,7 +7,7 @@ import {
 export class InstagramOAuth2Api implements ICredentialType {
   name = 'instagramOAuth2Api';
   extends = ['oAuth2Api'];
-  displayName = 'Instagram OAuth2 API (Business Login)';
+  displayName = 'Instagram OAuth2 API';
   documentationUrl = 'https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-instagram-login';
   icon = 'file:instagram.svg' as const;
 
