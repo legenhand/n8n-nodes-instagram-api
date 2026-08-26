@@ -44,7 +44,7 @@
   "scripts": {
     "build": "rm -rf dist && tsc && mkdir -p dist/nodes/Instagram dist/credentials && cp nodes/Instagram/*.svg nodes/Instagram/*.json dist/nodes/Instagram/ && cp credentials/*.svg dist/credentials/",
     "dev": "tsc --watch",
-    "prepare": "bun run build",
+    "prepare": "npm run build",
     "docs:dev": "bun --cwd docs dev",
     "docs:build": "bun --cwd docs build",
     "docs:preview": "bun --cwd docs preview"
